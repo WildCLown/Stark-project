@@ -1,4 +1,4 @@
-package com.stark.paymentforward.service.models
+package com.stark.paymentforward.model
 
 data class BankTransferOrder(
     val code: String,

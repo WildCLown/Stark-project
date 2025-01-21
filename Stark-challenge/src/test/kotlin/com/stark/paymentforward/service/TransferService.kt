@@ -1,4 +1,12 @@
 package com.stark.paymentforward.service
 
-class TransferService {
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+
+class TransferServiceTest {
+
+    @Test
+    fun `assert something`() {
+        assertEquals(true,true)
+    }
 }

@@ -1,4 +1,11 @@
 package com.stark.paymentforward
 
-class PaymentForwardApplication {
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class PaymentForwardApplication
+
+fun main(args: Array<String>) {
+    runApplication<PaymentForwardApplication>(*args)
 }
