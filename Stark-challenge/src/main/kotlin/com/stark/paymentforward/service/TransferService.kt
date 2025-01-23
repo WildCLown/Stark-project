@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service
 @Service
 class TransferService() {
 
-    fun processTransfer(invoiceId: Long, amountE2: Long): BankTransferOrder {
+    fun processTransfer(
+        invoiceId: Long,
+        amountE2: Long
+    ): BankTransferOrder {
 
         val transfer = BankTransferOrder(
             code = "something",

@@ -20,6 +20,11 @@ class PaymentForwardController(
         return "Processed"
     }
 
+    @GetMapping("/invoice")
+    fun invoice(): String {
+        return "Invoice"
+    }
+
     @GetMapping("/ping")
     fun ping(): String {
         return "Pong"
