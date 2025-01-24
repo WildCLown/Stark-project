@@ -18,8 +18,9 @@ class StarkInvoiceSenderImpl: StarkInvoiceSender {
 
         invoices.add(Invoice(dataInvoice))
         val createdInvoices = Invoice.create(invoices)
-        for (invoice in createdInvoices) {
-            println(invoice)
+
+        for (inv in createdInvoices) {
+            println("Invoice criada com sucesso: ${inv.id}")
         }
     }
 }
