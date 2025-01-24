@@ -1,6 +1,10 @@
 package com.stark.paymentforward.service.controller
 
+import com.stark.paymentforward.model.webhook.WebhookEvent
+import com.stark.paymentforward.model.webhook.isCredited
 import com.stark.paymentforward.service.TransferService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -11,22 +15,25 @@ class PaymentForwardController(
 
     @PostMapping("/webhook")
     fun webhookCallback(
-        @RequestBody payload: Map<String, Any>): String {
-        val invoiceId = (payload["invoiceId"] as Number).toLong()
-        val amount = (payload["amount"] as Number).toLong()
-
-        transferService.processTransfer(invoiceId, amount)
-
-        return "Processed"
-    }
-
-    @GetMapping("/invoice")
-    fun invoice(): String {
-        return "Invoice"
+        @RequestBody payload: WebhookEvent
+    ): ResponseEntity<Void> {
+        if(payload.event?.log?.isCredited() == true) {
+            try {
+                transferService.processTransfer(
+                    amountE2 = payload.event.log.invoice?.amount,
+                    feeE2 = payload.event.log.invoice?.fee
+                )
+                return ResponseEntity(HttpStatus.CREATED)
+            } catch (ex: Exception) {
+                return ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+        } else {
+            return ResponseEntity(HttpStatus.ACCEPTED)
+        }
     }
 
     @GetMapping("/ping")
-    fun ping(): String {
-        return "Pong"
+    fun ping(): ResponseEntity<String> {
+        return ResponseEntity("Pong", HttpStatus.CREATED)
     }
 }

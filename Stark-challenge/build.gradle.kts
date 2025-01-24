@@ -17,6 +17,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.starkbank:sdk:2.19.0")
     testImplementation(kotlin("test"))
 
     testImplementation("io.mockk:mockk:1.13.7")

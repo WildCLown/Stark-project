@@ -1,0 +1,30 @@
+package com.stark.paymentforward.model.webhook
+
+data class Invoice(
+    val amount: Long? = null,
+    val brcode: String? = null,
+    val created: String? = null,
+    val descriptions: List<Any>? = null,
+    val discountAmount: Int? = null,
+    val discounts: List<Any>? = null,
+    val displayDescription: String? = null,
+    val due: String? = null,
+    val expiration: Int? = null,
+    val fee: Long? = null,
+    val fine: Int? = null,
+    val fineAmount: Int? = null,
+    val id: String? = null,
+    val interest: Int? = null,
+    val interestAmount: Int? = null,
+    val link: String? = null,
+    val name: String? = null,
+    val nominalAmount: Int? = null,
+    val pdf: String? = null,
+    val rules: List<Any>? = null,
+    val splits: List<Any>? = null,
+    val status: String? = null,
+    val tags: List<String>? = null,
+    val taxId: String? = null,
+    val transactionIds: List<String>? = null,
+    val updated: String? = null
+)
