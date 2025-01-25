@@ -7,16 +7,37 @@ The project is divided into two services
 
 See variables on *Invoice-Producer\docker-compose.yml*, you can configure them or use as it is
 
-- STARKBANK_PRIVATE_KEY :  Project Pem Key, configured through Stark Sandbox Portal
+- STARKBANK_PRIVATE_KEY : Project Pem Key, configured through Stark Sandbox Portal
 - STARKBANK_PROJECT_ID : Project Id located on Stark Sandbox Portal
 - STARKBANK_ENVIRONMENT : Which project it is, in case we integrate with prod env.
 - STARKBANK_INVOICE_INTERVAL : Time interval that the invoices will be sent, 180 is the 3h exercice required, but in order to ease the test, you can set it as 1, and see invoices being sent.
 - STARKBANK_RUNTIME_INTERVAL : It should run 24h, but if a greater time range is needed, set it as the minutes of a day.
 
 ### Run
-Go to directory and simply run **docker-compose up** if your machine does have Docker, it was configured so that can be run in any setup enviroment!
+Go to directory *Stark-project\Invoice-Producer* and simply run **docker-compose up** if your machine does have Docker, it was configured so that can be run in any setup enviroment!
 
 ## Payment Forward
+See variables on *Stark-challenge\docker-compose.yml*, you can configure them or use as it is
+  - STARKBANK_PRIVATE_KEY: Project Pem Key, configured through Stark Sandbox Portal
+  - STARKBANK_PROJECT_ID: Project Id located on Stark Sandbox Portal
+  - STARKBANK_ENVIRONMENT: Which project it is, in case we integrate with prod env.
+  - Below goes the provided Bank variables, if the bank changes anything, it can be easily changed on project
+    - STARK_BANK_INFO_ACCOUNT_NUMBER: 6341320293482496
+    - STARK_BANK_INFO_BANK_NAME: - Stark Bank S.A.
+    - STARK_BANK_INFO_BRANCH_CODE: 0001
+    - STARK_BANK_INFO_BANK_CODE: 20018183
+    - STARK_BANK_INFO_BANK_TAX_ID: 20.018.183/0001-80
+    - STARK_BANK_INFO_BANK_ACCOUNT_TYPE: payment
+
+Go to directory *Stark-project\Stark-challenge* and run **docker-compose up --build --force-recreate**, it will start the project on **localhost:8080**
+
+The project has 2 routes:
+- **/api/ping** : This simply respondes 'pong', in order to test if the application works.
+- **/api/webhook** : This is the webhook that receives events and process invoices.
+
+### Good to know
+
+I'll be honest, not used to Cloud tools, but setting the variables, we can pull it from keyvaults, granting consistence between multiple services.
 
 ## Why different Services?
 
@@ -27,16 +48,29 @@ Also, it's easier to identify bugs with separated services as one can blow up wh
 ### Although, I will provide detailed information later
 
 - How much have you learned during the trial?
-  - Read section 'What I learned'
+  - Please, read section 'What I learned'
+
 - How well does your code run?
-  - I provide a Dockerfile in order to ease running both for me and for those who shall execute it. Also, right now I'm trying to integrate it with the cloud, which may ease the process for me.
+  - I provide a Dockerfile in order to ease running both for me and for those who shall execute it.
+  Also, right now I'm trying to integrate it with the cloud, which may ease the process for me.
+  The webhook is not robust as I'd like it to be, but by receiving the invoice webhook response, I created a object that would reflect it,
+  but someone can call it, and may break somehow... I've planned a structure on last section, that would grant a good robustness to the system.
+
 - Did you create unit tests or did you leave bugs hidden in your code?
-  - I created some unit tests mocking external services
+  - I created some unit tests mocking external services for processor.
+  - I will probably create for the webhook service.
   - There's a TaxId condition, it will always send with this same CPF, I tried finding a CPF/CNPJ generator, but
+  - Was not 100% sure about Fees handling, as the response shows about 'interest' and 'fine', did not take them as total fee.
+  - I'm assuming the webhook is only configured with 'invoice' event, if other events are also configured, and they have the 'type' field inside log, and it's 'credited', it will try to run...
+
 - How readable and efficient is your code?
-  - I try following SOLID and Clean Architecture principles, dividing objects and responsibilities, naming variables according to their functions, for a smoother understanding. For time management when processing invoices, it may get complicated to understand, not gonna lie, but logs ease this process.
+  - I try following SOLID and Clean Architecture principles, dividing objects and responsibilities, naming variables according to their functions, for a smoother understanding.
+  For time management when processing invoices, it may get complicated to understand, not gonna lie, but logs ease this process.
+
 - How quickly did you deliver the finished task?
   - It was a tough week for me, I should have delivered the feature itself after about 2 hours, but the Webhook management took me a while.
+  - After the service was done, I've put it in Docker, which took me a while, and I've done it on sartuday 25/01, about 4h total.
+  - May try to google cloud it, will place time if success.
 
 # What I learned
 
@@ -44,7 +78,7 @@ Also, it's easier to identify bugs with separated services as one can blow up wh
 - I never used **ngrok** and loved using it in order to test your webhook! It was easy to set it.
 - Gradle Stark SDK: I was sort of resistent using SDK when integrating something, it was really easy to use your API.
 - Spring API from scratch : I am used to Spring daily, but creating something new without all 'Ctrl Cs' from other services in code base, configuring gradle, it always make me learn something...
-- I'm trying to learn how to set it on AWS... Hope I succeed by the time we contact!
+- I'm trying to learn how to set it on Google Cloud or AWS... Hope I succeed by the time we contact!
 
 ## What I would try with more time:
 

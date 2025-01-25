@@ -18,6 +18,10 @@ class TransferService(
 
         val normalizedFee = feeE2 ?: 0
         val normalizedAmount = amountE2 - normalizedFee
+
+        // I've seen some attributes such as 'fine' and 'interest'
+        // Not sure if they should be taken from here... I'll assume not.
+
         if(normalizedAmount < 0) {
             throw IllegalArgumentException("Amount was lower than fee")
         } else if (normalizedAmount > 0) {

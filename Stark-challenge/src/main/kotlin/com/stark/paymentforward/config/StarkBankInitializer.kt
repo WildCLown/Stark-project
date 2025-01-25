@@ -13,7 +13,7 @@ class StarkBankInitializer {
     @PostConstruct
     fun initializeStarkBank() {
 
-//        val privateKeyResource = ClassPathResource("private_key.pem")
+//        val privateKeyResource = ClassPathResource("private_key.pem") // Code used to test locally
 //        val privateKey = Files.readString(privateKeyResource.file.toPath())
 
         val privateKey = System.getenv("STARKBANK_PRIVATE_KEY")
