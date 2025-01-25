@@ -18,7 +18,10 @@ class NameGeneratorImpl: NameGenerator {
             .build()
 
         return try {
-            val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+            val response = client.send(
+                request,
+                HttpResponse.BodyHandlers.ofString()
+            )
             parseNames(response.body())
         } catch (e: Exception) {
             emptyList()
@@ -26,7 +29,10 @@ class NameGeneratorImpl: NameGenerator {
     }
 
     private fun parseNames(jsonResponse: String): List<String> {
-        val randomUserResponse = gson.fromJson(jsonResponse, RandomUserResponse::class.java)
+        val randomUserResponse = gson.fromJson(
+            jsonResponse,
+            RandomUserResponse::class.java
+        )
 
         return randomUserResponse.results.map {
             "${it.name.first} ${it.name.last}"

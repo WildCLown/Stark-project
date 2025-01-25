@@ -14,6 +14,7 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.starkbank:sdk:2.19.0")
+    testImplementation("io.mockk:mockk:1.13.5")
 }
 
 tasks.test {
