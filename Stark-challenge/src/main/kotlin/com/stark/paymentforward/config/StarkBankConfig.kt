@@ -1,3 +1,5 @@
+package com.stark.paymentforward.config
+
 import com.stark.paymentforward.model.StarkBankInfo
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -6,13 +8,22 @@ import org.springframework.context.annotation.Configuration
 class StarkBankConfig {
     @Bean
     fun starkBankInfo(): StarkBankInfo {
-        return StarkBankInfo(
-            name = System.getenv("STARKBANK_NAME"),
-            branchCode = System.getenv("STARKBANK_BRANCH_CODE"),
-            account = System.getenv("STARKBANK_ACCOUNT"),
-            code = System.getenv("STARKBANK_CODE"),
-            taxId = System.getenv("STARKBANK_TAX_ID"),
-            accountType = System.getenv("STARKBANK_ACCOUNT_TYPE")
+        val bank_name = System.getenv("STARK_BANK_INFO_BANK_NAME")
+        val branch_code = System.getenv("STARK_BANK_INFO_BRANCH_CODE")
+        val account = System.getenv("STARK_BANK_INFO_BRANCH_CODE")
+        val code = System.getenv("STARK_BANK_INFO_BANK_CODE")
+        val tax_id = System.getenv("STARK_BANK_INFO_BANK_TAX_ID")
+        val account_type = System.getenv("STARK_BANK_INFO_ACCOUNT_NUMBER")
+
+        val bankObject = StarkBankInfo(
+            name = bank_name,
+            branchCode = branch_code,
+            account = account,
+            code = code,
+            taxId = tax_id,
+            accountType = account_type
         )
+
+        return bankObject
     }
 }
