@@ -12,10 +12,9 @@ class StarkBankInitializer {
 
     @PostConstruct
     fun initializeStarkBank() {
-        val privateKeyPath = System.getenv("STARKBANK_PRIVATE_KEY_PATH") ?: "src/main/resources/private_key.pem"
-        val privateKey = Files.readString(Paths.get(privateKeyPath))
-        val projectId = System.getenv("STARKBANK_PROJECT_ID") ?: "6040968771928064"
-        val environment = System.getenv("STARKBANK_ENVIRONMENT") ?: "sandbox"
+        val privateKey = System.getenv("STARKBANK_PRIVATE_KEY_PATH")
+        val projectId = System.getenv("STARKBANK_PROJECT_ID")
+        val environment = System.getenv("STARKBANK_ENVIRONMENT")
 
         val project = Project(
             environment,

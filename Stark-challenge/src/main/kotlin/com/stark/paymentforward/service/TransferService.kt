@@ -1,18 +1,13 @@
 package com.stark.paymentforward.service
 
-import com.starkbank.Project
+import com.stark.paymentforward.model.StarkBankInfo
 import com.starkbank.Transfer
 import org.springframework.stereotype.Service
 
 @Service
-class TransferService() {
-    private val bankName = "Stark Bank S.A."
-    private val branchCode = "0001"
-    private val bankAccount = "6341320293482496"
-    private val bankCode = "20018183"
-    private val bankTaxId = "20.018.183/0001-80"
-    private val bankAccountType = "payment"
-
+class TransferService(
+    private val starkBankInfo: StarkBankInfo
+) {
     fun processTransfer(
         amountE2: Long?,
         feeE2: Long?
@@ -29,12 +24,12 @@ class TransferService() {
             val transfers = mutableListOf<Transfer>()
             val dataTransfer = hashMapOf<String, Any>(
                 "amount" to normalizedAmount,
-                "name" to bankName,
-                "taxId" to bankTaxId,
-                "bankCode" to bankCode,
-                "branchCode" to branchCode,
-                "accountNumber" to bankAccount,
-                "accountType" to bankAccountType,
+                "name" to starkBankInfo.name,
+                "taxId" to starkBankInfo.taxId,
+                "bankCode" to starkBankInfo.code,
+                "branchCode" to starkBankInfo.branchCode,
+                "accountNumber" to starkBankInfo.account,
+                "accountType" to starkBankInfo.accountType,
             )
 
             transfers.add(Transfer(dataTransfer))

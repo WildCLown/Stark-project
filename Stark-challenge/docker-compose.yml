@@ -1,9 +1,23 @@
 version: '3.8'
-
 services:
-  app:
+  stark-invoice:
     build: .
+    image: stark-payment-forward:latest
+    environment:
+      STARKBANK_PRIVATE_KEY: |
+        -----BEGIN EC PRIVATE KEY-----
+        MHQCAQEEIPW3AsVBHE2gpoq2Vjo+mVjqWrOH31d1ut4/tnJ3na2toAcGBSuBBAAK
+        oUQDQgAE5Zh6uKJCJ86E8j+i9NlwR69M5Knjn3xjtW1TawOHRC5hXUzwLRUB/rdE
+        bhu8CX25Sp0e69eboLPzwGKXGYISIw==
+        -----END EC PRIVATE KEY-----
+      STARKBANK_PROJECT_ID: 6040968771928064
+      STARKBANK_ENVIRONMENT: sandbox
+      STARK_BANK_INFO_ACCOUNT_NUMBER: 6341320293482496
+      STARK_BANK_INFO_BANK_NAME: Stark Bank S.A.
+      STARK_BANK_INFO_BRANCH_CODE: 0001
+      STARK_BANK_INFO_BANK_CODE: 20018183
+      STARK_BANK_INFO_BANK_TAX_ID: 20.018.183/0001-80
+      STARK_BANK_INFO_BANK_ACCOUNT_TYPE: payment
+    container_name: payment-forward-stark-1
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=default

@@ -16,7 +16,7 @@ See variables on *Invoice-Producer\docker-compose.yml*, you can configure them o
 ### Run
 Go to directory and simply run **docker-compose up** if your machine does have Docker, it was configured so that can be run in any setup enviroment!
 
-## 
+## Payment Forward
 
 ## Why different Services?
 
@@ -31,7 +31,8 @@ Also, it's easier to identify bugs with separated services as one can blow up wh
 - How well does your code run?
   - I provide a Dockerfile in order to ease running both for me and for those who shall execute it. Also, right now I'm trying to integrate it with the cloud, which may ease the process for me.
 - Did you create unit tests or did you leave bugs hidden in your code?
-  - I will answer this soon.
+  - I created some unit tests mocking external services
+  - There's a TaxId condition, it will always send with this same CPF, I tried finding a CPF/CNPJ generator, but
 - How readable and efficient is your code?
   - I try following SOLID and Clean Architecture principles, dividing objects and responsibilities, naming variables according to their functions, for a smoother understanding. For time management when processing invoices, it may get complicated to understand, not gonna lie, but logs ease this process.
 - How quickly did you deliver the finished task?

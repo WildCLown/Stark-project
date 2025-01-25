@@ -19,19 +19,32 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.starkbank:sdk:2.19.0")
     testImplementation(kotlin("test"))
-
     testImplementation("io.mockk:mockk:1.13.7")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar> {
-    mainClass.set("com.stark.paymentforward.PaymentForwardApplication")
+    mainClass.set("com.stark.paymentforward.PaymentForwardApplicationKt")
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
-    mainClass.set("com.stark.paymentforward.PaymentForwardApplication")
+    mainClass.set("com.stark.paymentforward.PaymentForwardApplicationKt")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "21"
+    }
 }

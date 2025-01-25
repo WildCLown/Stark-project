@@ -1,21 +1,10 @@
-FROM openjdk:20-jdk-slim
-
+FROM gradle:8.12.0-jdk21 AS build
 WORKDIR /app
 
-# Baixe o wrapper do Gradle
-RUN apt-get update && apt-get install -y wget unzip \
-    && wget https://services.gradle.org/distributions/gradle-8.8-bin.zip \
-    && unzip gradle-8.8-bin.zip -d /opt \
-    && rm gradle-8.8-bin.zip \
-    && ln -s /opt/gradle-8.8/bin/gradle /usr/bin/gradle
-
-COPY build.gradle.kts settings.gradle.kts gradle.properties ./
-
-COPY src ./src
-
-# Use o comando gradle em vez de ./gradlew
+COPY . .
 RUN gradle build --no-daemon
 
-EXPOSE 8080
-
-CMD ["gradle", "bootRun"]
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+COPY --from=build /app/build/libs/Stark-challenge-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
