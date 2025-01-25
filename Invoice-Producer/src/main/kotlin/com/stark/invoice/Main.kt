@@ -5,13 +5,11 @@ import com.stark.invoice.handler.impl.StarkInvoiceSenderImpl
 import com.stark.invoice.service.InvoiceEmitterProcessor
 import com.starkbank.Project
 import com.starkbank.Settings
-import java.nio.file.Files
-import java.nio.file.Paths
 
 fun main() {
     starkConfig()
     val nameGenerator = NameGeneratorImpl()
-    val sendIntervalMinutes = 1L
+    val sendIntervalMinutes = System.getenv("STARKBANK_INVOICE_INTERVAL")?.toLong() ?: 180L
     val invoiceSender = StarkInvoiceSenderImpl()
 
     val processor = InvoiceEmitterProcessor(
@@ -23,12 +21,13 @@ fun main() {
     processor.start()
 }
 
-private fun starkConfig(){
-    val privateKeyPath = "src/main/resources/private_key.pem"
-    val privateKey = Files.readString(Paths.get(privateKeyPath)) // mudar para System.getenv("STARKBANK_PRIVATE_KEY")
-
-    val projectId = "6040968771928064" // mudar para System.getenv("STARKBANK_PROJECT_ID")
-    val environment = "sandbox" // mudar para System.getenv("STARKBANK_ENVIRONMENT")
+private fun starkConfig() {
+    val privateKey = System.getenv("STARKBANK_PRIVATE_KEY")
+        ?: throw IllegalArgumentException("STARKBANK_PRIVATE_KEY environment variable not set")
+    val projectId = System.getenv("STARKBANK_PROJECT_ID")
+        ?: throw IllegalArgumentException("STARKBANK_PROJECT_ID environment variable not set")
+    val environment = System.getenv("STARKBANK_ENVIRONMENT")
+        ?: throw IllegalArgumentException("STARKBANK_ENVIRONMENT environment variable not set")
 
     val user = Project(
         environment,

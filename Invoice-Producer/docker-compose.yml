@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  stark-invoice:
+    build: .
+    image: stark-invoice:latest
+    environment:
+      STARKBANK_PRIVATE_KEY: |
+        -----BEGIN EC PRIVATE KEY-----
+        MHQCAQEEIPW3AsVBHE2gpoq2Vjo+mVjqWrOH31d1ut4/tnJ3na2toAcGBSuBBAAK
+        oUQDQgAE5Zh6uKJCJ86E8j+i9NlwR69M5Knjn3xjtW1TawOHRC5hXUzwLRUB/rdE
+        bhu8CX25Sp0e69eboLPzwGKXGYISIw==
+        -----END EC PRIVATE KEY-----
+      STARKBANK_PROJECT_ID: 6040968771928064
+      STARKBANK_ENVIRONMENT: sandbox
+      STARKBANK_INVOICE_INTERVAL: 180
+      STARKBANK_RUNTIME_INTERVAL: 1440
+    container_name: invoice-producer-stark-invoice-1

@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.0.0"
+    application
 }
 
 group = "org.example"
@@ -17,4 +18,24 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("org.example.com.stark.invoice.MainKt")
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "org.example.com.stark.invoice.MainKt"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from({
+        configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
+    })
+    archiveFileName.set("app.jar")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_22
+    targetCompatibility = JavaVersion.VERSION_22
 }

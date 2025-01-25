@@ -17,18 +17,22 @@ class PaymentForwardController(
     fun webhookCallback(
         @RequestBody payload: WebhookEvent
     ): ResponseEntity<Void> {
+        println("Received webhook event with following payload")
+        println("$payload")
         if(payload.event?.log?.isCredited() == true) {
+            println("Credited event")
             try {
                 transferService.processTransfer(
                     amountE2 = payload.event.log.invoice?.amount,
                     feeE2 = payload.event.log.invoice?.fee
                 )
-                return ResponseEntity(HttpStatus.CREATED)
+                return ResponseEntity(HttpStatus.OK)
             } catch (ex: Exception) {
                 return ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
             }
         } else {
-            return ResponseEntity(HttpStatus.ACCEPTED)
+            println("Not credited event, it was: [${payload.event?.log?.type}]")
+            return ResponseEntity(HttpStatus.OK)
         }
     }
 

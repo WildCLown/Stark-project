@@ -28,7 +28,7 @@ class TransferService() {
         } else if (normalizedAmount > 0) {
             val transfers = mutableListOf<Transfer>()
             val dataTransfer = hashMapOf<String, Any>(
-                "amount" to amountE2,
+                "amount" to normalizedAmount,
                 "name" to bankName,
                 "taxId" to bankTaxId,
                 "bankCode" to bankCode,
