@@ -6,7 +6,6 @@ import com.stark.invoice.wrapper.RandomProvider
 import io.mockk.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import kotlin.random.Random
 
 class InvoiceEmitterProcessorTest {
     private val nameGeneratorMockk = mockk<NameGenerator>()
