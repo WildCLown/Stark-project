@@ -4,6 +4,7 @@ import com.stark.invoice.handler.NameGenerator
 import com.stark.invoice.handler.StarkInvoiceSender
 import com.stark.invoice.wrapper.RandomProvider
 import io.mockk.*
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -11,6 +12,16 @@ class InvoiceEmitterProcessorTest {
     private val nameGeneratorMockk = mockk<NameGenerator>()
     private val starkInvoiceSenderMockk = mockk<StarkInvoiceSender>()
     private val randomProviderMockk = mockk<RandomProvider>()
+
+    @AfterEach
+    fun tearDown() {
+        clearMocks(
+            nameGeneratorMockk,
+            starkInvoiceSenderMockk,
+            randomProviderMockk
+        )
+    }
+
     @Test
     fun `throws when range is greater than daily run`() {
         val processor = InvoiceEmitterProcessor(

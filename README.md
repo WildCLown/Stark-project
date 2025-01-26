@@ -58,10 +58,9 @@ Also, it's easier to identify bugs with separated services as one can blow up wh
 
 - Did you create unit tests or did you leave bugs hidden in your code?
   - I created some unit tests mocking external services for processor.
-  - I will probably create for the webhook service.
-  - There's a TaxId condition, it will always send with this same CPF, I tried finding a CPF/CNPJ generator, but
+  - Created unit tests for Controller [following my article](https://www.linkedin.com/pulse/test-structure-continuous-integration-teixeira-soares-de-almeida-heaqf/) easing future tests as service may include new webhooks, feel free to comment there!
+  - There's a TaxId condition, it will always send with this same CPF, I tried finding a CPF/CNPJ generator, but in order to speed up, just set it fixed.
   - Was not 100% sure about Fees handling, as the response shows about 'interest' and 'fine', did not take them as total fee.
-  - I'm assuming the webhook is only configured with 'invoice' event, if other events are also configured, and they have the 'type' field inside log, and it's 'credited', it will try to run...
 
 - How readable and efficient is your code?
   - I try following SOLID and Clean Architecture principles, dividing objects and responsibilities, naming variables according to their functions, for a smoother understanding.
