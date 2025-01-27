@@ -73,6 +73,9 @@ There are many other benefits on creating separated services for different porpu
   - After the service was done, I've put it in Docker, which took me further, also after everything was done, unit tests were developed.
   - May try to google cloud it
 
+I don't think it influences much, but good to inform that my commits usually don't speaks on itself, as most systems I've used uses PR commit stash management,
+this way my commit messages doesn't matter much, but I would provide a clear PR text.
+
 # What I learned
 
 - I tried a new request app similar to Postman: **ApiDog**, it was cool! you should try
