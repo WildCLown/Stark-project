@@ -44,6 +44,8 @@ I'll be honest, not used to Cloud tools, but setting the variables, we can pull 
 It doesn't make sense put them together, they have different responsabilities...
 Also, it's easier to identify bugs with separated services as one can blow up while the other is correctly sending the invoices.
 
+There are many other benefits on creating separated services for different porpuses that I'll not list
+
 ## To quickly answer as bullet points on PDF, follows the text:
 ### Although, I will provide detailed information later
 
@@ -68,15 +70,16 @@ Also, it's easier to identify bugs with separated services as one can blow up wh
 
 - How quickly did you deliver the finished task?
   - It was a tough week for me, I should have delivered the feature itself after about 2 hours, but the Webhook management took me a while.
-  - After the service was done, I've put it in Docker, which took me a while, and I've done it on sartuday 25/01, about 4h total.
-  - May try to google cloud it, will place time if success.
+  - After the service was done, I've put it in Docker, which took me further, also after everything was done, unit tests were developed.
+  - May try to google cloud it
 
 # What I learned
 
-- I tried a new request app similar to Postman: **ApiDog**, it was cool! should try
+- I tried a new request app similar to Postman: **ApiDog**, it was cool! you should try
 - I never used **ngrok** and loved using it in order to test your webhook! It was easy to set it.
 - Gradle Stark SDK: I was sort of resistent using SDK when integrating something, it was really easy to use your API.
 - Spring API from scratch : I am used to Spring daily, but creating something new without all 'Ctrl Cs' from other services in code base, configuring gradle, it always make me learn something...
+- Ease project setup using AIs
 - I'm trying to learn how to set it on Google Cloud or AWS... Hope I succeed by the time we contact!
 
 ## What I would try with more time:

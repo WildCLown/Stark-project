@@ -1,12 +1,14 @@
 package com.stark.paymentforward.service
 
 import com.stark.paymentforward.model.StarkBankInfo
+import com.stark.paymentforward.wrapper.TransferClient
 import com.starkbank.Transfer
 import org.springframework.stereotype.Service
 
 @Service
 class TransferService(
-    private val starkBankInfo: StarkBankInfo
+    private val starkBankInfo: StarkBankInfo,
+    private val transferClient: TransferClient
 ) {
     fun processTransfer(
         amountE2: Long?,
@@ -37,11 +39,7 @@ class TransferService(
             )
 
             transfers.add(Transfer(dataTransfer))
-            val createdTransfer = Transfer.create(transfers)
-
-            for (transfer in createdTransfer) {
-                println("Transferência criada com sucesso: ${transfer.id}")
-            }
+            transferClient.create(transfers)
         } // In case it's 0, we won't need to transfer a zero amount
     }
 }
